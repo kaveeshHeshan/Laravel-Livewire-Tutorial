@@ -11,7 +11,7 @@
             <div>
                 <!-- Modal -->
                 <!-- Add Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" id="addArticleModalBtn" class="btn btn-primary modal-open-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     {{__('Add Article')}}
                 </button>
                 
@@ -65,7 +65,7 @@
                                 <td>{{$article->description ?? '--'}}</td>
                                 <td>
                                         <!-- Edit Button trigger modal -->
-                                        <button type="button" wire:click='edit({{$article->id}})' class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editArticleModal">
+                                        <button type="button" wire:click='edit({{$article->id}})' class="btn btn-warning modal-open-button" data-bs-toggle="modal" data-bs-target="#editArticleModal">
                                             {{__('Edit')}}
                                         </button>
                                         <button type="button" wire:click='delete({{$article->id}})' class="btn btn-danger" href="">{{__('Delete')}}</button>
@@ -87,7 +87,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Edit Article</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click='closeModal' aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" wire:model="article_id">
@@ -110,3 +110,24 @@
         </div>
     
 </div>
+
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous">
+</script>
+<script>
+
+    $(document).on("click", ".modal-open-button", function() {
+        removeUnnessasaryBackdrops();
+    });
+    function removeUnnessasaryBackdrops() {
+        // console.log($('.modal-backdrop').length);
+        $( ".modal-backdrop" ).each(function( index ) {
+            if (index != 0) {
+                $(this).remove();
+            }
+            
+        });
+    }
+</script>
